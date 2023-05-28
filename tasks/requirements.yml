@@ -4,4 +4,3 @@
   ansible.builtin.import_role:
     name: tcharl.ansible_orchestration_cli
   become: True
-
