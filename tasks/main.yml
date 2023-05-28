@@ -5,3 +5,12 @@
   ansible.builtin.import_tasks: requirements.yml
   when:
     - standalone_role
+
+- name: Install Csi driver
+  ansible.builtin.include_tasks:
+    file: csi-volume.yml
+    apply:
+      delegate_to: "{{ groups['kube_master'][0] }}"
+  run_once: True
+  when:
+    - nfs_mountpoints | default([]) | map(attribute='mountpoints') | flatten | selectattr('csi_mount', 'defined') | selectattr('csi_mount', 'equalto', true)

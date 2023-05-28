@@ -1,11 +1,12 @@
-Ansible SecureHost
+Ansible orchestration csi
 =========
 
-* Galaxy: [![Ansible Galaxy](https://img.shields.io/badge/galaxy-tcharl.freeipa_server-660198.svg?style=flat)](https://galaxy.ansible.com/tcharl/freeipa_server)
-* Lint, Tests & requirements: ![Molecule](https://github.com/OsgiliathEnterprise/freeipa_server/workflows/Molecule/badge.svg)
+* Galaxy: [![Ansible Galaxy](https://img.shields.io/badge/galaxy-tcharl.orchestration_csi-660198.svg?style=flat)](https://galaxy.ansible.com/tcharl/freeipa_server)
+* Lint, & requirements: ![Molecule](https://github.com/OsgiliathEnterprise/orchestration_csi/workflows/Molecule/badge.svg)
+* Tests: [![Build Status](https://travis-ci.com/OsgiliathEnterprise/orchestration_csi.svg?branch=master)](https://travis-ci.com/OsgiliathEnterprise/orchestration_csi)
 * Chat: [![Join the chat at https://gitter.im/OsgiliathEnterprise/platform](https://badges.gitter.im/OsgiliathEnterprise/platform.svg)](https://gitter.im/OsgiliathEnterprise/platform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Wrapper on top of Ansible freeipa server to configure it in a simple way
+Install a container storage interface on top of kubernetes
 
 Requirements
 ------------
@@ -20,7 +21,8 @@ Take a look at the [molecule tests](./molecule/default/converge.yml) tests and t
 Dependencies
 ------------
 
-[ansible.freeipa collection](https://github.com/freeipa/ansible-freeipa)
+* [Collections](./requirements-collections.yml)
+* [Roles](./requirements-standalone.yml)
 
 License
 -------

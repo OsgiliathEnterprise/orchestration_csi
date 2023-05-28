@@ -1,20 +1,20 @@
 ---
 namespace: "tcharl"
-name: "freeipa_server"
+name: "orchestration_csi"
 version: "1.0.1"
-description: "Role on top of the marvelous Freeipa server role to configure in compliancy with the Osgiliath platform topology"
+description: "Installs and configures a container storage interface"
 
 authors:
   - "Charlie Mordant <cmordant1@gmail.com>"
 
-repository: "https://github.com/OsgiliathEnterprise/freeipa_server"
-documentation: "https://github.com/OsgiliathEnterprise/freeipa_server/blob/master/README.md"
-homepage: "https://github.com/OsgiliathEnterprise/freeipa_server"
-issues: "https://github.com/OsgiliathEnterprise/freeipa_server/issues"
+repository: "https://github.com/OsgiliathEnterprise/orchestration_csi"
+documentation: "https://github.com/OsgiliathEnterprise/orchestration_csi/blob/master/README.md"
+homepage: "https://github.com/OsgiliathEnterprise/orchestration_csi"
+issues: "https://github.com/OsgiliathEnterprise/orchestration_csi/issues"
 
 readme: "README.md"
 license:
   - "Apache-2.0"
 tags:
-  - "freeipa"
-  - "freeipa-server"
+  - "kubernetes"
+  - "hostpath"

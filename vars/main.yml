@@ -1,0 +1,12 @@
+---
+# vars file for ansible-orchestration
+
+kube_masters_group: kube_master
+kube_nodes_group: kube_node
+idm_group: 'ipaservers' # do not change: convention from the ipa roles
+kube_config_folder: "/etc/kubernetes"
+kube_credential_folder: "/home/kubecreds"
+kubernetes_certificates_path: "{{ kube_config_folder }}/pki/"
+kube_sysadmin_client_cert_path: "{{ kube_credential_folder }}/kubeadm.crt"
+kube_sysadmin_client_key_path: "{{ kube_credential_folder }}/kubeadm.pem"
+kube_cacert_path: "{{ kubernetes_certificates_path }}ca.crt"
