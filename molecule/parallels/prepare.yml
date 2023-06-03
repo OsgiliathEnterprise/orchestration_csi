@@ -1,7 +1,9 @@
 ---
 
 - name: Prepare
-  hosts: master.osgiliath.test
+  hosts:
+    - kube_master
+    - kube_node
   tasks:
     - include_role:
         name: tcharl.orchestration_csi
@@ -14,17 +16,3 @@
         company_ad_password: '123ADmPass'
         standalone_role: True
         kubernetes_allow_pods_on_master: False
-
-- name: Prepare
-  hosts: node1.osgiliath.test
-  tasks:
-    - include_role:
-        name: tcharl.orchestration_csi
-        tasks_from: requirements.yml
-      vars:
-        secure_logs: False
-        preferred_nic: "eth1"
-        company_domain: osgiliath.test
-        company_realm_password: '123ADMin'
-        company_ad_password: '123ADmPass'
-        standalone_role: True
