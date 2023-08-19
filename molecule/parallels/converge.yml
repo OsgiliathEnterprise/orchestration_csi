@@ -1,8 +1,11 @@
 ---
 - name: Converge master
-  hosts: master.osgiliath.test
+  hosts:
+    - kube_masters
   vars:
     kube_firewall_zone: 'public'
+    preferred_nic: "eth1"
+    idm_preferred_nic: "eth1"
     standalone_role: False
     reset_kube: True
 #    preferred_nic: "eth1"

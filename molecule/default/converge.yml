@@ -1,11 +1,13 @@
 ---
 - name: Converge master
-  hosts: master.osgiliath.test
+  hosts:
+    - kube_masters
   vars:
     secure_logs: False
     # preferred_nic: "eth1"
     kube_firewall_zone: 'public'
     preferred_nic: "eth1"
+    idm_preferred_nic: "eth1"
     reset_kube: True
     standalone_role: False
     nfs_mountpoints: # Mountpoints should be configured by the tcharl.ansible_volume (nfs mounts) on the server and client side to be mounted on each node before kubernetes comes in

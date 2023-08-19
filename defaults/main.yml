@@ -1,0 +1,4 @@
+---
+
+hostpath_provisioner_operator_version: v0.16.0
+hostpath_webhook_url: https://github.com/kubevirt/hostpath-provisioner-operator/releases/download/{{ hostpath_provisioner_operator_version }}/webhook.yaml

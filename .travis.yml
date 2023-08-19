@@ -35,7 +35,7 @@ install:
 
 script:
   - mv ../orchestration_csi ../tcharl.orchestration_csi
-  - travis_wait 50 tox -e test-exec -- --scenario-name kvm
+  - travis_wait 70 tox -e test-exec -- --scenario-name kvm
 branches:
   only:
     - master
