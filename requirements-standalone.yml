@@ -24,3 +24,4 @@ roles:
   - name: tcharl.nfs_client
   - name: tcharl.ansible_orchestration
   - name: tcharl.ansible_orchestration_cli
+  - name: tcharl.kube_certmanager
