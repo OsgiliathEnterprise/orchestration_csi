@@ -1,4 +1,5 @@
 ---
+
 - name: Prepare
   hosts:
     - all
@@ -16,3 +17,32 @@
         company_ad_password: '123ADmPass'
         standalone_role: True
         kubernetes_allow_pods_on_master: False
+- name: Nfs
+  hosts: master.osgiliath.test
+  roles:
+    - role: tcharl.nfs_server
+  vars:
+    secure_logs: False
+    preferred_nic: "eth1"
+    idm_preferred_nic: "eth1"
+    master_preferred_nic: "eth1"
+    company_domain: osgiliath.test
+    company_realm_password: '123ADMin'
+    company_ad_password: '123ADmPass'
+    standalone_role: True
+    kubernetes_allow_pods_on_master: False
+    lvm_groups:
+      - vgname: non-persistent
+        disks:
+          - /dev/sdb
+        create: true
+        lvmetanames:
+          - lvname: nfs_exposed
+            size: 4M
+            create: true
+            filesystem: xfs
+            expose_nfs: True
+            mntp: /var/nfs
+            mount: true
+    manage_lvm: true
+    configure_nfs: True

@@ -1,7 +1,7 @@
 ---
 - name: Converge master
   hosts:
-    - kube_masters
+    - all
   vars:
     secure_logs: False
     kube_firewall_zone: 'public'
@@ -12,14 +12,10 @@
     nfs_mountpoints: # Mountpoints should be configured by the tcharl.ansible_volume (nfs mounts) on the server and client side to be mounted on each node before kubernetes comes in
       - host: master.osgiliath.test
         mountpoints:
-          - remote: /var/shared/csi
+          - remote: /var/nfs
             local: /net
+            insecure: True
             csi_mount: Yes
-          - local: /net
-            remote: /var/shared/volume
-            kubernetes_volumes:
-              - subtree: /artefactrepo
-                mountsize: 1
 
   #        kube_alt_names:
 #          - "kubeadm.osgiliath.net"

@@ -6,11 +6,18 @@
   when:
     - standalone_role
 
-- name: Install Csi driver
+#- name: Install Csi driver
+#  ansible.builtin.include_tasks:
+#    file: csi-volume.yml
+#    apply:
+#      delegate_to: "{{ groups['kube_master'][0] }}"
+#  run_once: True
+#  when:
+#    - nfs_mountpoints | default([]) | map(attribute='mountpoints') | flatten | selectattr('csi_mount', 'defined') | selectattr('csi_mount', 'equalto', true)
+
+- name: Install Nfs driver
   ansible.builtin.include_tasks:
-    file: csi-volume.yml
-    apply:
-      delegate_to: "{{ groups['kube_master'][0] }}"
-  run_once: True
-  when:
-    - nfs_mountpoints | default([]) | map(attribute='mountpoints') | flatten | selectattr('csi_mount', 'defined') | selectattr('csi_mount', 'equalto', true)
+    file: nfs-mountpoint.yml
+  loop: "{{ nfs_mountpoints }}"
+  loop_control:
+    loop_var: nfs_mountpoint

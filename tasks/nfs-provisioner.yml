@@ -1,0 +1,79 @@
+---
+
+- name: Nfs provisioner | check prerequisites
+  ansible.builtin.assert:
+    that:
+      - mountpoint.insecure is defined
+      - mountpoint.insecure
+    fail_msg: "'Mountpoint should be defined and insecure should be true'"
+
+- name: Nfs provisioner | Create temporary directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: nfs-subdir-provisioner
+  register: orchestration_csi_subdir_provisioner_tempdir
+  delegate_to: "{{ groups['kube_master'][0] }}"
+  become: True
+
+- name: Nfs provisioner | retrieve nfs host
+  ansible.builtin.debug:
+    msg: "{{ nfs_mountpoint.host }}"
+  register: orchestration_csi_nfs_server_ip
+
+- name: Nfs provisioner | retrieve nfs mountpoint
+  ansible.builtin.debug:
+    msg: "{{ mountpoint.remote }}"
+  register: orchestration_csi_nfs_server_path
+
+- name: Nfs provisioner | debug values that are used to create the nfs provisioner
+  ansible.builtin.debug:
+    msg: " hostname: {{ orchestration_csi_nfs_server_ip.msg }} path: {{ orchestration_csi_nfs_server_path.msg }}"
+
+- name: Nfs provisioner | Instantiate helm value NFS information
+  ansible.builtin.template:
+    src: nfs-subdir-values.yml.j2
+    dest: "{{ orchestration_csi_subdir_provisioner_tempdir.path }}/nfs-subdir-values.yml"
+    owner: root
+    group: root
+    mode: 0644
+  delegate_to: "{{ groups['kube_master'][0] }}"
+  become: true
+
+- name: Nfs Provisioner | Reference nfs-subdir-external-provisioner repository
+  kubernetes.core.helm_repository:
+    name: nfs-subdir-external-provisioner
+    repo_url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+    kubeconfig: /root/.kube/config
+  delegate_to: "{{ groups['kube_master'][0] }}"
+  become: True
+
+- name: Nfs Provisioner | Create nfs subdir provisioner namespace
+  kubernetes.core.k8s:
+    name: nfs-subdir-provisioner
+    kind: Namespace
+    state: present
+    wait_timeout: 200
+    wait_sleep: 20
+  register: lsresult
+  until: "lsresult is not failed"
+  delegate_to: "{{ groups['kube_master'][0] }}"
+  retries: 5
+  delay: 10
+  become: True
+
+- name: Nfs Provisioner | Deploy latest version of Nfs subdir provisioner
+  kubernetes.core.helm:
+    kubeconfig: /root/.kube/config
+    name: nfs-subdir-external-provisioner
+    chart_ref: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+    release_namespace: nfs-subdir-provisioner
+    chart_version: "{{ nfs_subdir_provisioner_chart_version }}"
+    values_files:
+      - "{{ orchestration_csi_subdir_provisioner_tempdir.path }}/nfs-subdir-values.yml"
+  register: lsresult
+  delegate_to: "{{ groups['kube_master'][0] }}"
+  until: "lsresult is not failed"
+  failed_when: False
+  retries: 5
+  delay: 5
+  become: True

@@ -19,6 +19,8 @@ platforms:
       - type: dhcp
         auto_config: true
         network_name: private_network
+    provider_raw_config_args:
+      - "customize ['set', :id, '--device-add', 'hdd', '--size', '840']"
     groups:
       - kube_master
       - ipaclients

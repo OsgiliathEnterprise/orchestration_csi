@@ -1,0 +1,8 @@
+---
+
+- name: Mountpoint loop | Install Nfs driver
+  ansible.builtin.include_tasks:
+    file: mountpoint.yml
+  loop: "{{ nfs_mountpoint.mountpoints }}"
+  loop_control:
+    loop_var: mountpoint

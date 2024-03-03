@@ -1,4 +1,6 @@
 ---
 
-hostpath_provisioner_operator_version: v0.16.0
-hostpath_webhook_url: https://github.com/kubevirt/hostpath-provisioner-operator/releases/download/{{ hostpath_provisioner_operator_version }}/webhook.yaml
+# hostpath_provisioner_operator_version: v0.18.0
+# hostpath_webhook_url: https://github.com/kubevirt/hostpath-provisioner-operator/releases/download/{{ hostpath_provisioner_operator_version }}/webhook.yaml
+
+nfs_subdir_provisioner_chart_version: 4.0.18

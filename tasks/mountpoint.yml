@@ -1,0 +1,7 @@
+---
+
+- name: Mountpoint loop | Install Nfs driver
+  ansible.builtin.include_tasks:
+    file: nfs-provisioner.yml
+  run_once: True
+  when: mountpoint.csi_mount | default(false)

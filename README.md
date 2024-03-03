@@ -6,7 +6,7 @@ Ansible orchestration csi
 * Tests: [![Build Status](https://travis-ci.com/OsgiliathEnterprise/orchestration_csi.svg?branch=master)](https://travis-ci.com/OsgiliathEnterprise/orchestration_csi)
 * Chat: [![Join the chat at https://gitter.im/OsgiliathEnterprise/platform](https://badges.gitter.im/OsgiliathEnterprise/platform.svg)](https://gitter.im/OsgiliathEnterprise/platform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Install a container storage interface on top of kubernetes
+Install a container storage interface on top of kubernetes ([based on nfs subdir](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner))
 
 Requirements
 ------------

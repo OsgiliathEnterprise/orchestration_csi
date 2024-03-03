@@ -16,3 +16,41 @@
         company_ad_password: '123ADmPass'
         standalone_role: True
         kubernetes_allow_pods_on_master: False
+        nfs_mountpoints:
+          - host: master.osgiliath.test
+            mountpoints:
+              - remote: /var/shared/csi
+                local: /net
+                csi_mount: Yes
+                insecure: True
+                nfs_provisioner: Yes
+- name: Expose NFS
+  hosts: master.osgiliath.test
+  vars:
+    secure_logs: False
+    preferred_nic: "eth1"
+    master_preferred_nic: "eth1"
+    idm_preferred_nic: "eth1"
+    company_domain: osgiliath.test
+    company_realm_password: '123ADMin'
+    company_ad_password: '123ADmPass'
+    standalone_role: True
+    kubernetes_allow_pods_on_master: False
+    lvm_groups:
+      - vgname: non-persistent
+        disks:
+          - /dev/sdb1
+        create: true
+        lvmetanames:
+          - lvname: nfs_exposed
+            size: 4M
+            create: true
+            filesystem: xfs
+            expose_nfs: True
+            # insecure: yes, min_ip_to_share: 192.168.1.128
+            mntp: /var/nfs
+            mount: true
+    manage_lvm: true
+    configure_nfs: True
+  roles:
+    - role: tcharl.nfs_server

@@ -46,6 +46,7 @@
             namespace: hostpath-provisioner
           #- path: deploy/storageclass-wffc.yaml
           #  namespace: hostpath-provisioner
+
 - name: Csi-volume | create temp directory to host template
   changed_when: false
   ansible.builtin.tempfile:
