@@ -13,7 +13,6 @@
       - host: master.osgiliath.test
         mountpoints:
           - remote: /var/nfs
-            local: /net
             insecure: True
             csi_mount: Yes
 

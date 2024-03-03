@@ -13,7 +13,6 @@
       - host: master.osgiliath.test
         mountpoints:
           - remote: /var/nfs
-            local: /net
             csi_mount: Yes
             insecure: True
 #        kube_alt_names:
